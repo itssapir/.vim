@@ -49,7 +49,7 @@ set matchpairs+=<:>
 
 " Display different types of white spaces.
 set list
-set listchars=tab:\ \ ,trail:•,extends:#,nbsp:.
+"set listchars=tab:\ \ ,trail:•,extends:#,nbsp:.
 
 " Show line numbers
 set number
@@ -68,7 +68,8 @@ set incsearch
 set ignorecase
 " Include only uppercase words with uppercase search term
 set smartcase
-
+" Show completion options when using tab-completion for commands
+set wildmenu
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
@@ -76,13 +77,25 @@ set viminfo='100,<9999,s100
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
 
-" Set automatic folds for code files (Should use indent for python, syntax otherwise)
+" Set automatic folds for code files (can set to indent for python files in '.vim/after/ftplugin/python.vim')
 set foldmethod=syntax
 
 " Automatically save and load folds
+if has("win32")
+  set viewdir=$HOME/vimfiles/view
+endif
 autocmd BufWinLeave ?* mkview
 autocmd BufWinEnter ?* silent loadview"
 
 " Automatically open all folds when opening a file
 autocmd BufWinEnter ?* silent! :%foldopen!
 
+" GVIM settings
+if has("gui_running")
+  if has("gui_win32")
+    colorscheme darkblue
+    set guifont=Consolas:h14:cANSI:qDRAFT
+  else
+    set guifont=Inconsolata\ 12
+  endif
+endif
