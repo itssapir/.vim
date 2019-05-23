@@ -47,18 +47,18 @@ set showcmd
 " Highlight matching pairs of brackets. Use the '%' character to jump between them.
 set matchpairs+=<:>
 
+" Encoding
+set encoding=utf-8
+
 " Display different types of white spaces.
 set list
-"set listchars=tab:\ \ ,trail:•,extends:#,nbsp:.
+set listchars=tab:\ \ ,trail:•,extends:#,nbsp:.
 
 " Show line numbers
 set number
 
 " Set status line display
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
-
-" Encoding
-set encoding=utf-8
 
 " Highlight matching search patterns
 set hlsearch
