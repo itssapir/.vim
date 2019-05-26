@@ -23,11 +23,12 @@ set pastetoggle=<F2>
 " Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
 " set textwidth=79
 set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=8
+set shiftwidth=4
+set softtabstop=0
 set expandtab
 set noshiftround
+set smarttab
 
 " Display 5 lines above/below the cursor when scrolling with a mouse.
 set scrolloff=5
