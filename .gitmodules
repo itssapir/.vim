@@ -1,0 +1,3 @@
+[submodule "bundle/vim-workspace"]
+	path = bundle/vim-workspace
+	url = https://github.com/thaerkh/vim-workspace.git

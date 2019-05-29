@@ -4,6 +4,9 @@ set nocompatible
 " Helps force plug-ins to load correctly when it is turned back on below.
 filetype off
 
+" Turn on Pathogen plugin manager
+execute pathogen#infect()
+
 " Turn on syntax highlighting.
 syntax on
 
@@ -14,7 +17,7 @@ filetype plugin indent on
 set modelines=0
 
 " Automatically wrap text that extends beyond the screen length.
-set wrap
+set nowrap
 " Vim's auto indentation feature does not work properly with text copied from outisde of Vim. Press the <F2> key to toggle paste mode on/off.
 nnoremap <F2> :set invpaste paste?<CR>
 imap <F2> <C-O>:set invpaste paste?<CR>
@@ -53,7 +56,7 @@ set encoding=utf-8
 
 " Display different types of white spaces.
 set list
-set listchars=tab:\ \ ,trail:•,extends:#,nbsp:.
+set listchars=tab:\ \ ,trail:·,extends:#,nbsp:. " ,space:·
 
 " Show line numbers
 set number
@@ -74,6 +77,14 @@ set wildmenu
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
+" Tab navigation like Firefox.
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+
 " Map the <Space> key to toggle a selected fold opened/closed.
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
@@ -85,8 +96,16 @@ set foldmethod=syntax
 if has("win32")
   set viewdir=$HOME/vimfiles/view
 endif
-autocmd BufWinLeave ?* mkview
-autocmd BufWinEnter ?* silent loadview"
+" autocmd BufWinLeave ?* mkview
+" autocmd BufWinEnter ?* silent loadview"
+augroup AutoSaveFolds
+  autocmd!
+  " view files are about 500 bytes
+  " bufleave but not bufwinleave captures closing 2nd tab
+  " nested is needed by bufwrite* (if triggered via other autocmd)
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
+augroup end
 
 " Automatically open all folds when opening a file
 autocmd BufWinEnter ?* silent! :%foldopen!
