@@ -10,6 +10,9 @@ execute pathogen#infect()
 " Turn on syntax highlighting.
 syntax on
 
+" Default typeless files to python syntax
+autocmd BufEnter * if &syntax == "" | setlocal syntax=python | endif
+
 " For plug-ins to load correctly.
 filetype plugin indent on
 
@@ -100,6 +103,7 @@ if has("win32")
 endif
 " autocmd BufWinLeave ?* mkview
 " autocmd BufWinEnter ?* silent loadview"
+
 augroup AutoSaveFolds
   autocmd!
   " view files are about 500 bytes
@@ -121,6 +125,3 @@ if has("gui_running")
     set guifont=Inconsolata\ 12
   endif
 endif
-
-
-
