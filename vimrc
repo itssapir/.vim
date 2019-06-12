@@ -5,7 +5,7 @@ set nocompatible
 filetype off
 
 " Turn on Pathogen plugin manager
-execute pathogen#infect()
+" execute pathogen#infect()
 
 " Turn on Plug plugin manager
 call plug#begin()
@@ -13,6 +13,7 @@ call plug#begin()
 Plug 'lifepillar/vim-mucomplete'
 Plug 'davidhalter/jedi-vim' " need to pip install jedi
 Plug 'xavierd/clang_complete' " need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
+Plug 'thaerkh/vim-workspace'
 " For first time init need to call ':PlugInstall'
 " Initialize plugin system
 call plug#end()
