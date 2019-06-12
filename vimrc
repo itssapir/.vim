@@ -7,11 +7,22 @@ filetype off
 " Turn on Pathogen plugin manager
 execute pathogen#infect()
 
+" Turn on Plug plugin manager
+call plug#begin()
+" Make sure you use single quotes
+Plug 'lifepillar/vim-mucomplete'
+Plug 'davidhalter/jedi-vim' " need to pip install jedi
+Plug 'xavierd/clang_complete' " need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
+" For first time init need to call ':PlugInstall'
+" Initialize plugin system
+call plug#end()
+
 " Turn on syntax highlighting.
 syntax on
 
-" Default typeless files to python syntax
+" Default typeless files to python filetype/syntax
 autocmd BufEnter * if &syntax == "" | setlocal syntax=python | endif
+autocmd BufEnter * if &filetype == "" | setlocal filetype=python | endif
 
 " For plug-ins to load correctly.
 filetype plugin indent on
@@ -125,3 +136,12 @@ if has("gui_running")
     set guifont=Inconsolata\ 12
   endif
 endif
+
+set completeopt+=menuone
+set completeopt+=noinsert
+set shortmess+=c
+set belloff+=ctrlg
+set completeopt-=preview
+set completeopt+=longest,menuone,noselect
+"let g:jedi#popup_on_dot = 0  " It may be 1 as well
+let g:mucomplete#enable_auto_at_startup = 1
