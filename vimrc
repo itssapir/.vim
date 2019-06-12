@@ -92,6 +92,18 @@ set wildmenu
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
+" Completion settings
+set completeopt+=menuone,noinsert,longest,noselect
+set completeopt-=preview
+set shortmess+=c
+set belloff+=ctrlg
+" don't automatically popup suggestions when typing dot
+let g:jedi#popup_on_dot = 0
+" give suggestion only after typing pauses
+let g:mucomplete#completion_delay = 1
+" enable autocompletion plugin
+let g:mucomplete#enable_auto_at_startup = 1
+
 " Tab navigation like Browser.
 nnoremap <C-S-tab> :tabprevious<CR>
 nnoremap <C-tab>   :tabnext<CR>
@@ -138,11 +150,3 @@ if has("gui_running")
   endif
 endif
 
-set completeopt+=menuone
-set completeopt+=noinsert
-set shortmess+=c
-set belloff+=ctrlg
-set completeopt-=preview
-set completeopt+=longest,menuone,noselect
-"let g:jedi#popup_on_dot = 0  " It may be 1 as well
-let g:mucomplete#enable_auto_at_startup = 1
