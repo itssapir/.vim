@@ -13,6 +13,11 @@ call plug#begin()
 Plug 'lifepillar/vim-mucomplete'
 Plug 'davidhalter/jedi-vim' " need to pip install jedi
 Plug 'xavierd/clang_complete' " need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
+if has('win32')
+    let g:clang_library_path='C:\Program Files (x86)\LLVM\bin\libclang.dll'
+else
+    let g:clang_library_path='~/.vim/clang/lib/libclang.so'
+endif
 Plug 'thaerkh/vim-workspace'
 " For first time init need to call ':PlugInstall'
 " Initialize plugin system
