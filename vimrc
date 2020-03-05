@@ -11,7 +11,7 @@ filetype off
 call plug#begin()
 " Make sure you use single quotes
 Plug 'lifepillar/vim-mucomplete'
-Plug 'davidhalter/jedi-vim' " need to pip install jedi
+" Plug 'davidhalter/jedi-vim' " need to pip install jedi
 Plug 'xavierd/clang_complete' " need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
 
 " search for libclang for clang_complete, otherwise disable it.
@@ -148,6 +148,9 @@ augroup AutoSaveFolds
   autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
   autocmd BufWinEnter ?* silent! loadview
 augroup end
+
+" Change default netrw view to extended view
+let g:netrw_liststyle = 1
 
 " Automatically open all folds when opening a file
 autocmd BufWinEnter ?* silent! :%foldopen!
