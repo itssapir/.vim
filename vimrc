@@ -11,9 +11,14 @@ filetype off
 call plug#begin()
 " Make sure you use single quotes
 Plug 'lifepillar/vim-mucomplete'
+Plug 'rjayatilleka/vim-insert-char'
 " Plug 'davidhalter/jedi-vim' " need to pip install jedi
-Plug 'xavierd/clang_complete' " need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
+Plug 'thaerkh/vim-workspace'
+Plug 'preservim/nerdcommenter'
 
+" clang completion for c files
+" need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
+Plug 'xavierd/clang_complete'
 " search for libclang for clang_complete, otherwise disable it.
 " might need to modify these paths to reflect libclang location
 if filereadable(expand('/usr/lib/llvm-8/lib/libclang.so.1'))
@@ -25,7 +30,7 @@ elseif filereadable(expand('C:\Program Files (x86)\LLVM\bin\libclang.dll'))
 else
     let g:clang_complete_loaded=0
 endif
-Plug 'thaerkh/vim-workspace'
+
 " For first time init need to call ':PlugInstall'
 " Initialize plugin system
 call plug#end()
