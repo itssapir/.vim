@@ -10,11 +10,13 @@ filetype off
 " Turn on Plug plugin manager
 call plug#begin()
 " Make sure you use single quotes
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
 Plug 'lifepillar/vim-mucomplete'
-Plug 'rjayatilleka/vim-insert-char'
+Plug 'rjayatilleka/vim-insert-char' " binds <Space> to enter single-char insert mode
 " Plug 'davidhalter/jedi-vim' " need to pip install jedi
-Plug 'thaerkh/vim-workspace'
-Plug 'preservim/nerdcommenter'
+" Plug 'thaerkh/vim-workspace'
+Plug 'preservim/nerdcommenter' " adds a lot of ways to quickly comment out code sections
 
 " clang completion for c files
 " need to install clang and then add 'let g:clang_library_path= <path to libclang.dll> '
@@ -48,7 +50,7 @@ filetype plugin indent on
 " Turn off modelines
 set modelines=0
 
-" Automatically wrap text that extends beyond the screen length.
+" Don't automatically wrap text that extends beyond the screen length.
 set nowrap
 " Vim's auto indentation feature does not work properly with text copied from outisde of Vim. Press the <F2> key to toggle paste mode on/off.
 nnoremap <F2> :set invpaste paste?<CR>
@@ -109,11 +111,16 @@ set wildmenu
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
-" Completion settings
-set completeopt+=menuone,noinsert,longest,noselect
+" Always show completion menu
+set completeopt+=menuone
+" Only insert longest common substring from all completion possibilities
+set completeopt+=longest
+" Do not show extra information about the selected completion
 set completeopt-=preview
-set shortmess+=c
-set belloff+=ctrlg
+" Silence some completion messages (e.g. pattern not found)
+silent! set shortmess+=c
+silent! set belloff+=ctrlg
+
 " don't automatically popup suggestions when typing dot
 let g:jedi#popup_on_dot = 0
 " give suggestion only after typing pauses
@@ -122,18 +129,18 @@ let g:mucomplete#completion_delay = 1
 let g:mucomplete#enable_auto_at_startup = 1
 
 " Tab navigation like Browser.
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
 nnoremap th     :tabprevious<CR>
 nnoremap tl     :tabnext<CR>
 nnoremap tt     :tabnew<CR>
 nnoremap tw     :tabclose<CR>
-inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-inoremap <C-tab>   <Esc>:tabnext<CR>i
 
 " Map the <Space> key to toggle a selected fold opened/closed.
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
+" nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+" vnoremap <Space> zf
 
 " Set automatic folds for code files (can set to indent for python files in '.vim/after/ftplugin/python.vim')
 set foldmethod=syntax
@@ -142,8 +149,6 @@ set foldmethod=syntax
 if has("win32")
   set viewdir=$HOME/vimfiles/view
 endif
-" autocmd BufWinLeave ?* mkview
-" autocmd BufWinEnter ?* silent loadview"
 
 augroup AutoSaveFolds
   autocmd!
@@ -160,7 +165,7 @@ let g:netrw_liststyle = 1
 " Automatically open all folds when opening a file
 autocmd BufWinEnter ?* silent! :%foldopen!
 
-" GVIM settings
+" GVIM display settings
 if has("gui_running")
   if has("gui_win32")
     colorscheme darkblue
