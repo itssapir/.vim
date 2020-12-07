@@ -10,8 +10,11 @@ filetype off
 " Turn on Plug plugin manager
 call plug#begin()
 " Make sure you use single quotes
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+if v:version >= 800 && executable("ctags")
+    Plug 'ludovicchabant/vim-gutentags'
+    let g:gutentags_cache_dir=expand('/.autodirect/swgwork/sapirm/.tags') " collect all tag files to a single location
+endif
+
 Plug 'lifepillar/vim-mucomplete'
 Plug 'rjayatilleka/vim-insert-char' " binds <Space> to enter single-char insert mode
 " Plug 'davidhalter/jedi-vim' " need to pip install jedi
@@ -142,6 +145,9 @@ nnoremap tw     :tabclose<CR>
 " nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " vnoremap <Space> zf
 
+" automatically change vim directory to current file directory
+set autochdir
+
 " Set automatic folds for code files (can set to indent for python files in '.vim/after/ftplugin/python.vim')
 set foldmethod=syntax
 
@@ -175,3 +181,50 @@ if has("gui_running")
   endif
 endif
 
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
